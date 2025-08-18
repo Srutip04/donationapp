@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native';
 import Header from '../../components/Header/Header';
 import Button from '../../components/Button/Button';
 import Tab from '../../components/Tab/Tab';
+import Badge from '../../components/Badge/Badge';
 
 import style from './style';
 import globalStyle from '../../assets/styles/globalStyles';
@@ -20,6 +21,7 @@ const Home = ({ navigation }) => {
       <Button title={'Donate'} isDisabled={true} />
       <Tab title={'Highlight'} />
       <Tab title={'Highlight'} isInactive={true} />
+      <Badge title={'Environment'} />
     </SafeAreaView>
   );
 };
