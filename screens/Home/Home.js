@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView,View } from 'react-native';
+import { Pressable, SafeAreaView,View,Text } from 'react-native';
 import Header from '../../components/Header/Header';
 import Button from '../../components/Button/Button';
 import Tab from '../../components/Tab/Tab';
@@ -9,13 +9,15 @@ import SingleDonationItem from '../../components/SingleDonationItem/SingleDonati
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { horizontalScale } from '../../assets/styles/scaling';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { updateFirstName } from '../../redux/reducers/User';
 import style from './style';
 import globalStyle from '../../assets/styles/globalStyles';
 
 const Home = ({ navigation }) => {
   const user = useSelector(state => state.user);
   console.log('user from redux', user);
+  const dispatch = useDispatch();
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
       {/* <Header title={'Azzahri A.'} type={1} />
@@ -32,6 +34,9 @@ const Home = ({ navigation }) => {
       <FontAwesomeIcon icon={faSearch} />
       <Search onSearch={value =>{console.log(value)}}/> */}
       <Header title={`${user.firstName} ${user.lastName}`} type={1} />
+      <Pressable onPress={() => dispatch(updateFirstName({ firstName: 'John' }))}>
+        <Text>Press me to change first name</Text>
+      </Pressable>
       <View
         style={{
           flexDirection: 'row',
