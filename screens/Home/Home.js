@@ -9,11 +9,13 @@ import SingleDonationItem from '../../components/SingleDonationItem/SingleDonati
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { horizontalScale } from '../../assets/styles/scaling';
-
+import { useSelector } from 'react-redux';
 import style from './style';
 import globalStyle from '../../assets/styles/globalStyles';
 
 const Home = ({ navigation }) => {
+  const user = useSelector(state => state.user);
+  console.log('user from redux', user);
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
       {/* <Header title={'Azzahri A.'} type={1} />
@@ -29,7 +31,7 @@ const Home = ({ navigation }) => {
       <Badge title={'Environment'} />
       <FontAwesomeIcon icon={faSearch} />
       <Search onSearch={value =>{console.log(value)}}/> */}
-
+      <Header title={`${user.firstName} ${user.lastName}`} type={1} />
       <View
         style={{
           flexDirection: 'row',
