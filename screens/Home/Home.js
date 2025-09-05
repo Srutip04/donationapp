@@ -6,15 +6,19 @@ import {
   ScrollView,
   Image,
   Pressable,
+  FlatList,
 } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import Header from '../../components/Header/Header';
+import Search from '../../components/Search/Search';
+import Tab from '../../components/Tab/Tab';
+
+import { updateSelectedCategoryId } from '../../redux/reducers/Categories';
 
 import globalStyle from '../../assets/styles/globalStyles';
 import style from './style';
-import Search from '../../components/Search/Search';
 
 const Home = () => {
   const user = useSelector(state => state.user);
@@ -55,10 +59,29 @@ const Home = () => {
             resizeMode={'contain'}
           />
         </Pressable>
+        <View style={style.categoryHeader}>
+          <Header title={'Select Category'} type={2} />
+        </View>
+        <View style={style.categories}>
+          <FlatList
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            data={categories.categories}
+            renderItem={({ item }) => (
+              <View style={style.categoryItem} key={item.categoryId}>
+                <Tab
+                  tabId={item.categoryId}
+                  onPress={value => dispatch(updateSelectedCategoryId(value))}
+                  title={item.name}
+                  isInactive={item.categoryId !== categories.selectedCategoryId}
+                />
+              </View>
+            )}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
-
 
 export default Home;
