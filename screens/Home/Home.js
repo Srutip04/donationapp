@@ -16,19 +16,18 @@ import Header from '../../components/Header/Header';
 import Search from '../../components/Search/Search';
 import Tab from '../../components/Tab/Tab';
 import SingleDonationItem from '../../components/SingleDonationItem/SingleDonationItem';
+import { Routes } from '../../navigation/Routes';
 
 import {updateSelectedCategoryId} from '../../redux/reducers/Categories';
+import { updateSelectedDonationId } from '../../redux/reducers/Donations';
 
 import globalStyle from '../../assets/styles/globalStyles';
 import style from './style';
 
-const Home = () => {
-  // Using the useSelector hook to select the "user" slice of the store
-  // This will return the user object containing firstName, lastName and userId fields
+const Home = ({navigation}) => {
+  
   const user = useSelector(state => state.user);
 
-  // Using the useDispatch hook to get a reference to the dispatch function
-  // This function allows us to dispatch actions to update the store
   const dispatch = useDispatch();
   const categories = useSelector(state => state.categories);
   const donations = useSelector(state => state.donations);
@@ -138,7 +137,10 @@ const Home = () => {
             {donationItems.map(value => (
               <View key={value.donationItemId} style={style.singleDonationItem}>
                 <SingleDonationItem
-                  onPress={selectedDonationId => {}}
+                  onPress={selectedDonationId => {
+                    dispatch(updateSelectedDonationId(selectedDonationId));
+                    navigation.navigate(Routes.SingleDonationItem);
+                  }}
                   donationItemId={value.donationItemId}
                   uri={value.image}
                   donationTitle={value.name}
