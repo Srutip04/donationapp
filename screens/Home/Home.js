@@ -31,11 +31,19 @@ const Home = () => {
 
   console.log('Categories from store:', categories);
   console.log('this is our current donations state', donations);
-
+  
+  const [donationItems, setDonationItems] = useState([]);
   const [categoryPage, setCategoryPage] = useState(1);
   const [categoryList, setCategoryList] = useState([]);
   const [isLoadingCategories, setIsLoadingCategories] = useState(false);
   const categoryPageSize = 4;
+
+   useEffect(() => {
+    const items = donations.items.filter(value =>
+      value.categoryIds.includes(categories.selectedCategoryId),
+    );
+    setDonationItems(items);
+  }, [categories.selectedCategoryId]);
 
   useEffect(() => {
     setIsLoadingCategories(true);

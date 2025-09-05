@@ -13,7 +13,7 @@ const Tab = props => {
   };
   return (
     <Pressable
-      disabled={props.isInactive}
+      // disabled={props.isInactive}
       style={[style.tab, props.isInactive && style.inactiveTab, tabWidth]}
       onPress={() => props.onPress(props.tabId)}>
       <Text
