@@ -9,9 +9,7 @@ import {
   FlatList,
 } from 'react-native';
 
-// Importing the useSelector and useDispatch hooks from the React Redux library
-// The useSelector hook allows us to select and retrieve data from the store
-// The useDispatch hook allows us to dispatch actions to update the store
+
 import {useDispatch, useSelector} from 'react-redux';
 
 import Header from '../../components/Header/Header';
@@ -79,7 +77,7 @@ const Home = () => {
             </View>
           </View>
           <Image
-            source={{uri: user.profileImage}}
+            source={{uri: "https://cdn.dribbble.com/users/1577045/screenshots/4914645/media/028d394ffb00cb7a4b2ef9915a384fd9.png?compress=1&resize=400x300&vertical=top"}}
             style={style.profileImage}
             resizeMode={'contain'}
           />
@@ -138,19 +136,20 @@ const Home = () => {
         {donationItems.length > 0 && (
           <View style={style.donationItemsContainer}>
             {donationItems.map(value => (
-              <SingleDonationItem
-                onPress={selectedDonationId => {}}
-                donationItemId={value.donationItemId}
-                uri={value.image}
-                donationTitle={value.name}
-                badgeTitle={
-                  categories.categories.filter(
-                    val => val.categoryId === categories.selectedCategoryId,
-                  )[0].name
-                }
-                key={value.donationItemId}
-                price={parseFloat(value.price)}
-              />
+              <View key={value.donationItemId} style={style.singleDonationItem}>
+                <SingleDonationItem
+                  onPress={selectedDonationId => {}}
+                  donationItemId={value.donationItemId}
+                  uri={value.image}
+                  donationTitle={value.name}
+                  badgeTitle={
+                    categories.categories.filter(
+                      val => val.categoryId === categories.selectedCategoryId,
+                    )[0].name
+                  }
+                  price={parseFloat(value.price)}
+                />
+              </View>
             ))}
           </View>
         )}
