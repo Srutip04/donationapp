@@ -1,67 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import { Pressable, SafeAreaView,View,Text } from 'react-native';
-import Header from '../../components/Header/Header';
-import Button from '../../components/Button/Button';
-import Tab from '../../components/Tab/Tab';
-import Badge from '../../components/Badge/Badge';
-import Search from '../../components/Search/Search';
-import SingleDonationItem from '../../components/SingleDonationItem/SingleDonationItem';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { horizontalScale } from '../../assets/styles/scaling';
-import { useSelector,useDispatch } from 'react-redux';
-import { updateFirstName } from '../../redux/reducers/User';
-import style from './style';
-import globalStyle from '../../assets/styles/globalStyles';
+import React from 'react';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  ScrollView,
+  Image,
+  Pressable,
+} from 'react-native';
 
-const Home = ({ navigation }) => {
+// Importing the useSelector and useDispatch hooks from the React Redux library
+// The useSelector hook allows us to select and retrieve data from the store
+// The useDispatch hook allows us to dispatch actions to update the store
+import {useDispatch, useSelector} from 'react-redux';
+
+import Header from '../../components/Header/Header';
+
+import globalStyle from '../../assets/styles/globalStyles';
+import style from './style';
+import Search from '../../components/Search/Search';
+
+const Home = () => {
+  // Using the useSelector hook to select the "user" slice of the store
+  // This will return the user object containing firstName, lastName and userId fields
   const user = useSelector(state => state.user);
-  console.log('user from redux', user);
+  console.log('User from store:', user.profileImage);
+
+  // Using the useDispatch hook to get a reference to the dispatch function
+  // This function allows us to dispatch actions to update the store
   const dispatch = useDispatch();
+
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
-      {/* <Header title={'Azzahri A.'} type={1} />
-      <Button
-        title={'Donate'}
-        onPress={() => {
-          console.log('You just pressed me !!');
-        }}
-      />
-      <Button title={'Donate'} isDisabled={true} />
-      <Tab title={'Highlight'} />
-      <Tab title={'Highlight'} isInactive={true} />
-      <Badge title={'Environment'} />
-      <FontAwesomeIcon icon={faSearch} />
-      <Search onSearch={value =>{console.log(value)}}/> */}
-      <Header title={`${user.firstName} ${user.lastName}`} type={1} />
-      <Pressable onPress={() => dispatch(updateFirstName({ firstName: 'John' }))}>
-        <Text>Press me to change first name</Text>
-      </Pressable>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingHorizontal: horizontalScale(24),
-        }}>
-        <SingleDonationItem
-          uri={
-            'https://img.pixers.pics/pho_wat(s3:700/FO/44/24/64/31/700_FO44246431_ab024cd8251bff09ce9ae6ecd05ec4a8.jpg,525,700,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,305,650,jpg)/stickers-cactus-cartoon-illustration.jpg.jpg'
-          }
-          badgeTitle={'Environment'}
-          donationTitle={'Tree Cactus'}
-          price={44}
-        />
-        <SingleDonationItem
-          uri={
-            'https://img.pixers.pics/pho_wat(s3:700/FO/44/24/64/31/700_FO44246431_ab024cd8251bff09ce9ae6ecd05ec4a8.jpg,525,700,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,305,650,jpg)/stickers-cactus-cartoon-illustration.jpg.jpg'
-          }
-          badgeTitle={'Environment'}
-          donationTitle={'Tree Cactus'}
-          price={44}
-        />
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={style.header}>
+          <View>
+            <Text style={style.headerIntroText}>Hello, </Text>
+            <View style={style.username}>
+              <Header
+                title={user.firstName + ' ' + user.lastName[0] + '. 👋'}
+              />
+            </View>
+          </View>
+          <Image
+            source={{uri: 'https://cdn.dribbble.com/users/1577045/screenshots/4914645/media/028d394ffb00cb7a4b2ef9915a384fd9.png?compress=1&resize=400x300&vertical=top'}}
+            style={style.profileImage}
+            resizeMode={'contain'}
+          />
+        </View>
+        <View style={style.searchBox}>
+          <Search />
+        </View>
+        <Pressable style={style.highlightedImageContainer}>
+          <Image
+            style={style.highlightedImage}
+            source={require('../../assets/images/highlighted_image.png')}
+            resizeMode={'contain'}
+          />
+        </Pressable>
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
+// Exporting the Home component to be used in other parts of the app
 export default Home;

@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {getFontFamily} from '../../assets/fonts/helper';
 import {
   horizontalScale,
   scaleFontSize,
@@ -8,41 +7,36 @@ import {
 
 const style = StyleSheet.create({
   header: {
-    marginLeft: horizontalScale(27),
-    marginRight: horizontalScale(17),
-    marginTop: verticalScale(30),
+    marginTop: verticalScale(20),
+    marginHorizontal: horizontalScale(24),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  messageIcon: {
-    padding: horizontalScale(14),
-    borderRadius: horizontalScale(100),
-    backgroundColor: '#F9FAFB',
+  headerIntroText: {
+    fontFamily: 'Inter',
+    fontSize: scaleFontSize(16),
+    lineHeight: scaleFontSize(19),
+    fontWeight: '400',
+    color: '#636776',
   },
-  messageNumberContainer: {
-    backgroundColor: '#F35BAC',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    width: horizontalScale(10),
-    height: horizontalScale(10),
-    borderRadius: horizontalScale(10),
-    position: 'absolute',
-    right: horizontalScale(10),
-    top: verticalScale(10),
+  username: {
+    marginTop: verticalScale(5),
   },
-  messageNumber: {
-    color: '#FFFFFF',
-    fontSize: scaleFontSize(6),
-    fontFamily: getFontFamily('Inter', '600'),
+  profileImage: {
+    width: horizontalScale(50),
+    height: verticalScale(50),
   },
-  userStoryContainer: {
-    marginTop: verticalScale(20),
-    marginHorizontal: horizontalScale(28),
-  },
-  userPostContainer: {
+  searchBox: {
     marginHorizontal: horizontalScale(24),
+    marginTop: verticalScale(20),
+  },
+  highlightedImageContainer: {
+    marginHorizontal: horizontalScale(24),
+  },
+  highlightedImage: {
+    width: '100%',
+    height: verticalScale(160),
   },
 });
 
