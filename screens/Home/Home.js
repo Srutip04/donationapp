@@ -8,10 +8,7 @@ import {
   Pressable,
 } from 'react-native';
 
-// Importing the useSelector and useDispatch hooks from the React Redux library
-// The useSelector hook allows us to select and retrieve data from the store
-// The useDispatch hook allows us to dispatch actions to update the store
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Header from '../../components/Header/Header';
 
@@ -20,14 +17,13 @@ import style from './style';
 import Search from '../../components/Search/Search';
 
 const Home = () => {
-  // Using the useSelector hook to select the "user" slice of the store
-  // This will return the user object containing firstName, lastName and userId fields
   const user = useSelector(state => state.user);
-  console.log('User from store:', user.profileImage);
+  console.log('User from store:', user);
 
-  // Using the useDispatch hook to get a reference to the dispatch function
-  // This function allows us to dispatch actions to update the store
   const dispatch = useDispatch();
+
+  const categories = useSelector(state => state.categories);
+  console.log('Categories from store:', categories);
 
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
@@ -42,7 +38,9 @@ const Home = () => {
             </View>
           </View>
           <Image
-            source={{uri: 'https://cdn.dribbble.com/users/1577045/screenshots/4914645/media/028d394ffb00cb7a4b2ef9915a384fd9.png?compress=1&resize=400x300&vertical=top'}}
+            source={{
+              uri: 'https://cdn.dribbble.com/users/1577045/screenshots/4914645/media/028d394ffb00cb7a4b2ef9915a384fd9.png?compress=1&resize=400x300&vertical=top',
+            }}
             style={style.profileImage}
             resizeMode={'contain'}
           />
@@ -62,5 +60,5 @@ const Home = () => {
   );
 };
 
-// Exporting the Home component to be used in other parts of the app
+
 export default Home;

@@ -5,9 +5,11 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit';
 // import { logger } from 'redux-logger';
 
 import User from './reducers/User';
+import Categories from './reducers/Categories';
 
 const rootReducer = combineReducers({
   user: User,
+  categories: Categories,
 });
 
 const configuration = {
