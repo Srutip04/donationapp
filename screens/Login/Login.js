@@ -7,7 +7,9 @@ import globalStyle from '../../assets/styles/globalStyles';
 import Header from '../../components/Header/Header';
 import Button from '../../components/Button/Button';
 
-const Login = () => {
+import { Routes } from '../../navigation/Routes';
+
+const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   console.log(email);
@@ -39,7 +41,9 @@ const Login = () => {
         <View style={globalStyle.marginBottom24}>
           <Button title={'Login'} />
         </View>
-        <Pressable style={style.registrationButton}>
+       <Pressable
+          style={style.registrationButton}
+          onPress={() => navigation.navigate(Routes.Registration)}>
           <Header color={'#156CF7'} type={3} title={"Don't have an account?"} />
         </Pressable>
       </ScrollView>
