@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   View,
@@ -9,8 +9,7 @@ import {
   FlatList,
 } from 'react-native';
 
-
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Header from '../../components/Header/Header';
 import Search from '../../components/Search/Search';
@@ -18,14 +17,15 @@ import Tab from '../../components/Tab/Tab';
 import SingleDonationItem from '../../components/SingleDonationItem/SingleDonationItem';
 import { Routes } from '../../navigation/Routes';
 
-import {updateSelectedCategoryId} from '../../redux/reducers/Categories';
+import { updateSelectedCategoryId } from '../../redux/reducers/Categories';
 import { updateSelectedDonationId } from '../../redux/reducers/Donations';
+import { resetToInitialState } from '../../redux/reducers/User';
+import { logOut } from '../../api/user';
 
 import globalStyle from '../../assets/styles/globalStyles';
 import style from './style';
 
-const Home = ({navigation}) => {
-  
+const Home = ({ navigation }) => {
   const user = useSelector(state => state.user);
 
   const dispatch = useDispatch();
@@ -70,16 +70,25 @@ const Home = ({navigation}) => {
           <View>
             <Text style={style.headerIntroText}>Hello, </Text>
             <View style={style.username}>
-              <Header
-                title={user.displayName + ' 👋'}
-              />
+              <Header title={user.displayName + ' 👋'} />
             </View>
           </View>
-          <Image
-            source={{uri: "https://cdn.dribbble.com/users/1577045/screenshots/4914645/media/028d394ffb00cb7a4b2ef9915a384fd9.png?compress=1&resize=400x300&vertical=top"}}
-            style={style.profileImage}
-            resizeMode={'contain'}
-          />
+          <View>
+            <Image
+              source={{
+                uri: 'https://cdn.dribbble.com/users/1577045/screenshots/4914645/media/028d394ffb00cb7a4b2ef9915a384fd9.png?compress=1&resize=400x300&vertical=top',
+              }}
+              style={style.profileImage}
+              resizeMode={'contain'}
+            />
+            <Pressable
+              onPress={async () => {
+                dispatch(resetToInitialState());
+                await logOut();
+              }}>
+              <Header type={3} title={'Logout'} color={'#156CF7'} />
+            </Pressable>
+          </View>
         </View>
         <View style={style.searchBox}>
           <Search />
@@ -120,7 +129,7 @@ const Home = ({navigation}) => {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             data={categoryList}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <View style={style.categoryItem} key={item.categoryId}>
                 <Tab
                   tabId={item.categoryId}
@@ -141,7 +150,8 @@ const Home = ({navigation}) => {
               return (
                 <View
                   key={value.donationItemId}
-                  style={style.singleDonationItem}>
+                  style={style.singleDonationItem}
+                >
                   <SingleDonationItem
                     onPress={selectedDonationId => {
                       dispatch(updateSelectedDonationId(selectedDonationId));
