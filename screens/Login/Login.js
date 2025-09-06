@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, Pressable, View,Text } from 'react-native';
+import { SafeAreaView, ScrollView, Pressable, View, Text } from 'react-native';
 import Input from '../../components/Input/Input';
 
 import style from './style';
@@ -7,13 +7,16 @@ import globalStyle from '../../assets/styles/globalStyles';
 import Header from '../../components/Header/Header';
 import Button from '../../components/Button/Button';
 import { loginUser } from '../../api/user';
+import { useDispatch } from 'react-redux';
+import { logIn } from '../../redux/reducers/User';
 
 import { Routes } from '../../navigation/Routes';
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const dispatch = useDispatch();
 
   console.log(email);
   return (
@@ -50,6 +53,7 @@ const Login = ({navigation}) => {
                 setError(user.error);
               } else {
                 setError('');
+                dispatch(logIn(user.data));
                 navigation.navigate(Routes.Home);
               }
             }}
@@ -57,9 +61,10 @@ const Login = ({navigation}) => {
             isDisabled={email.length < 5 || password.length < 8}
           />
         </View>
-       <Pressable
+        <Pressable
           style={style.registrationButton}
-          onPress={() => navigation.navigate(Routes.Registration)}>
+          onPress={() => navigation.navigate(Routes.Registration)}
+        >
           <Header color={'#156CF7'} type={3} title={"Don't have an account?"} />
         </Pressable>
       </ScrollView>
