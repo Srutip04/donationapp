@@ -54,7 +54,7 @@ const Login = ({ navigation }) => {
               } else {
                 setError('');
                 dispatch(logIn(user.data));
-                navigation.navigate(Routes.Home);
+                // navigation.navigate(Routes.Home);
               }
             }}
             title={'Login'}
