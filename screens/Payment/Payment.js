@@ -4,6 +4,8 @@ import globalStyle from "../../assets/styles/globalStyles";
 import Header from "../../components/Header/Header";
 import style from "./style";
 import { useSelector } from "react-redux";
+import {CardForm, StripeProvider} from '@stripe/stripe-react-native';
+import { STRIPE_PUBLISHABLE_KEY } from "../../constants/App";
 import Button from "../../components/Button/Button";
 
 const Payment = ({navigation}) => {
@@ -17,7 +19,11 @@ const Payment = ({navigation}) => {
         <Text style={style.donationAmountDescription}>
           You are about to donate {donationItemInformation.price}
         </Text>
-        <View />
+       <View>
+          <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
+            <CardForm style={style.cardForm} />
+          </StripeProvider>
+        </View>
       </ScrollView>
       <View style={style.button}>
         <Button title={'Donate'} />
