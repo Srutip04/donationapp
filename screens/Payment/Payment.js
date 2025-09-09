@@ -23,7 +23,7 @@ const Payment = ({ navigation }) => {
 
   const fetchPaymentIntentClientSecret = async () => {
     const response = await fetch(
-      'http://localhost:3000/create-payment-intent',
+      'https://stripe-server-vmvm.onrender.com/create-payment-intent',
       {
         method: 'POST',
         headers: {
